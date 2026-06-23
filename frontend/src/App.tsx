@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import IssueList from './components/IssueList'
 import RepositoryCard from './components/RepositoryCard'
+import SearchBar from './components/SearchBar'
 
 type Issue = {
   title: string
@@ -642,19 +643,11 @@ function App() {
             Discover repositories, analyze issues, and get AI-powered explanations
             to help you contribute confidently to open source projects.
           </p>
-          <form className="search-form" onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search repositories (e.g. facebook/react)"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              aria-label="Repository search"
-            />
-            <button type="submit" className="search-btn">
-              Search
-            </button>
-          </form>
+          <SearchBar
+  query={query}
+  onQueryChange={setQuery}
+  onSubmit={handleSearch}
+/>
 
           <RepositoryCard
   name={repositoryName}
