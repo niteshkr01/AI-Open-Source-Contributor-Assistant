@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import IssueList from './components/IssueList'
 
 type Issue = {
   title: string
@@ -684,35 +685,12 @@ function App() {
               {issues.length === 0 ? (
                 <p className="issues-empty">No issues found</p>
               ) : (
-                <ul className="issues-items">
-                  {issues.map((issue) => (
-                    <li key={issue.url} className="issue-item">
-                      <p className="issue-title">{issue.title}</p>
-                      <div className="issue-meta">
-                        <span className={`issue-state ${issue.state}`}>{issue.state}</span>
-                        <a
-                          href={issue.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="issue-link"
-                        >
-                          {issue.url}
-                        </a>
-                      </div>
-                      <button
-                        type="button"
-                        className="explain-btn"
-                        disabled={explainingUrl === issue.url}
-                        onClick={() => explainIssue(issue.url, issue.title)}
-                      >
-                        {explainingUrl === issue.url ? 'Explaining...' : 'Explain Issue'}
-                      </button>
-                      {issueExplanations[issue.url] && (
-                        <p className="issue-explanation">{issueExplanations[issue.url]}</p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+                <IssueList
+  issues={issues}
+  issueExplanations={issueExplanations}
+  explainingUrl={explainingUrl}
+  onExplain={explainIssue}
+/>
               )}
             </article>
           )}
