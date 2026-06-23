@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import IssueList from './components/IssueList'
+import RepositoryCard from './components/RepositoryCard'
 
 type Issue = {
   title: string
@@ -655,29 +656,12 @@ function App() {
             </button>
           </form>
 
-          <article className="repo-details">
-            <h2>Repository Details</h2>
-            <dl>
-              <div className="repo-details-row">
-                <dt>Repository Name</dt>
-                <dd>{repositoryName}</dd>
-              </div>
-              <div className="repo-details-row">
-                <dt>Description</dt>
-                <dd>{description}</dd>
-              </div>
-            </dl>
-            <div className="repo-meta">
-              <div className="repo-meta-item">
-                <span>Stars</span>
-                {stars}
-              </div>
-              <div className="repo-meta-item">
-                <span>Language</span>
-                {language}
-              </div>
-            </div>
-          </article>
+          <RepositoryCard
+  name={repositoryName}
+  description={description}
+  stars={stars}
+  language={language}
+/>
 
           {issues !== null && (
             <article className="issues-list">
