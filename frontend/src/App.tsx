@@ -19,6 +19,7 @@ function App() {
   const [issues, setIssues] = useState<Issue[] | null>(null)
   const [issueExplanations, setIssueExplanations] = useState<Record<string, string>>({})
   const [explainingUrl, setExplainingUrl] = useState<string | null>(null)
+  const [issueFilter, setIssueFilter] = useState<string>('all')
 
   const explainIssue = async (issueUrl: string, title: string) => {
     setExplainingUrl(issueUrl)
@@ -78,7 +79,7 @@ function App() {
       setStars(repo.stars)
       setLanguage(repo.language ?? 'Unknown')
 
-      const issuesData = await fetchIssues(trimmed)
+      const issuesData = await fetchIssues(trimmed, issueFilter === 'all' ? undefined : issueFilter)
       const repoIssues = issuesData
         .filter((item: { pull_request?: unknown }) => !item.pull_request)
         .slice(0, 5)
@@ -92,6 +93,25 @@ function App() {
     } catch {
       // Network error — leave current state unchanged
     }
+  }
+
+  const handleFilterChange = async (filter: string) => {
+    setIssueFilter(filter)
+    if (repositoryName === 'Not searched yet') return
+  
+    const issuesData = await fetchIssues(
+      query.trim(),
+      filter === 'all' ? undefined : filter
+    )
+    const repoIssues = issuesData
+      .filter((item: { pull_request?: unknown }) => !item.pull_request)
+      .slice(0, 5)
+      .map((item: { title: string; state: string; html_url: string }) => ({
+        title: item.title,
+        state: item.state,
+        url: item.html_url,
+      }))
+    setIssues(repoIssues)
   }
 
   const features = [
@@ -645,21 +665,42 @@ function App() {
   language={language}
 />
 
-          {issues !== null && (
-            <article className="issues-list">
-              <h2>Issues</h2>
-              {issues.length === 0 ? (
-                <p className="issues-empty">No issues found</p>
-              ) : (
-                <IssueList
-  issues={issues}
-  issueExplanations={issueExplanations}
-  explainingUrl={explainingUrl}
-  onExplain={explainIssue}
-/>
-              )}
-            </article>
-          )}
+{issues !== null && (
+  <article className="issues-list">
+    <h2>Issues</h2>
+    <div className="issue-filters">
+      <button
+        className={issueFilter === 'all' ? 'filter-btn active' : 'filter-btn'}
+        onClick={() => handleFilterChange('all')}
+      >
+        All Issues
+      </button>
+      <button
+        className={issueFilter === 'good first issue' ? 'filter-btn active' : 'filter-btn'}
+        onClick={() => handleFilterChange('good first issue')}
+      >
+        Good First Issue
+      </button>
+      <button
+        className={issueFilter === 'help wanted' ? 'filter-btn active' : 'filter-btn'}
+        onClick={() => handleFilterChange('help wanted')}
+      >
+        Help Wanted
+      </button>
+    </div>
+    {issues.length === 0 ? (
+      <p className="issues-empty">No issues found</p>
+    ) : (
+      <IssueList
+        issues={issues}
+        issueExplanations={issueExplanations}
+        explainingUrl={explainingUrl}
+        onExplain={explainIssue}
+      />
+    )}
+  </article>
+)}
+          
         </section>
 
         <section className="features" id="features">
