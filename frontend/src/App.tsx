@@ -2,6 +2,7 @@ import { useState } from 'react'
 import IssueList from './components/IssueList'
 import RepositoryCard from './components/RepositoryCard'
 import SearchBar from './components/SearchBar'
+import { fetchRepository, fetchIssues } from './services/github'
 
 type Issue = {
   title: string
@@ -62,9 +63,9 @@ function App() {
     setIssueExplanations({})
 
     try {
-      const response = await fetch(`https://api.github.com/repos/${trimmed}`)
+      const repo = await fetchRepository(trimmed)
 
-      if (response.status === 404) {
+      if (!repo) {
         setRepositoryName('Repository not found')
         setDescription('Not searched yet')
         setStars(0)
@@ -72,24 +73,12 @@ function App() {
         return
       }
 
-      if (!response.ok) return
+      setRepositoryName(repo.name)
+      setDescription(repo.description ?? 'No description')
+      setStars(repo.stars)
+      setLanguage(repo.language ?? 'Unknown')
 
-      const data = await response.json()
-      setRepositoryName(data.name)
-      setDescription(data.description ?? 'No description')
-      setStars(data.stargazers_count)
-      setLanguage(data.language ?? 'Unknown')
-
-      const issuesResponse = await fetch(
-        `https://api.github.com/repos/${trimmed}/issues?per_page=30&state=all`,
-      )
-
-      if (!issuesResponse.ok) {
-        setIssues([])
-        return
-      }
-
-      const issuesData = await issuesResponse.json()
+      const issuesData = await fetchIssues(trimmed)
       const repoIssues = issuesData
         .filter((item: { pull_request?: unknown }) => !item.pull_request)
         .slice(0, 5)
