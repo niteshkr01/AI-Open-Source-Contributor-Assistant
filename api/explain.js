@@ -4,7 +4,7 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -23,11 +23,10 @@ export default async function handler(req, res) {
     });
 
     const text = response.choices[0].message.content;
-
     res.json({ explanation: text });
 
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "AI explanation failed" });
   }
-}
+};
