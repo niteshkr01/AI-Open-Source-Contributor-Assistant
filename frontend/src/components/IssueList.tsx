@@ -1,7 +1,7 @@
 type Issue = {
     title: string
     state: string
-    html_url: string
+    html_url?: string
     url: string
     body?: string
   }
