@@ -608,7 +608,7 @@ function App() {
         <section className="hero" id="search">
           <span className="hero-badge">
             <span className="badge-dot" />
-            Live — Powered by Groq AI
+            Your First PR Start Here
           </span>
           <h1>Find. Understand.<br /><span>Contribute.</span></h1>
           <p className="hero-subtitle">
