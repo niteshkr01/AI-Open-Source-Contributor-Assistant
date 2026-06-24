@@ -1,8 +1,11 @@
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
+## 📸 **Preview**
+
+![App Screenshot 2](frontend/public/Screenshot%202026-06-24%20182353.png)
 
 
-\# AI Open Source Contributor Assistant
+## AI Open Source Contributor Assistant
 
 
 
@@ -14,13 +17,13 @@ Search any GitHub repository, explore its issues, filter beginner-friendly ones,
 
 
 
-\## Live Demo
+## Live Demo
 
 \[ai-open-source-contributor-assistan.vercel.app](https://ai-open-source-contributor-assistan.vercel.app)
 
 
 
-\## Features
+## Features
 
 \- Search any public GitHub repository by name
 
@@ -34,25 +37,19 @@ Search any GitHub repository, explore its issues, filter beginner-friendly ones,
 
 
 
-\## Tech Stack
+## 🛠️ Tech Stack
 
-| Layer | Technology |
-
-|-------|-----------|
-
-| Frontend | React, TypeScript, Vite |
-
-| Backend | Node.js, Express |
-
-| AI Model | Llama 3.3 70B via Groq API |
-
-| Data | GitHub REST API |
-
-| Deployment | Vercel |
+| | Tech |
+|--|------|
+| Frontend | React · TypeScript · Vite |
+| Backend | Node.js · Express |
+| AI | Groq · Llama 3.3 70B |
+| API | GitHub REST |
+| Deploy | Vercel |
 
 
 
-\## Architecture
+## Architecture
 
 React Frontend → Express Backend → Groq AI + GitHub REST API
 
@@ -60,7 +57,7 @@ React Frontend → Express Backend → Groq AI + GitHub REST API
 
 
 
-\# Frontend
+## Frontend
 
 cd frontend
 
@@ -70,7 +67,7 @@ npm run dev
 
 
 
-\# Backend
+## Backend
 
 cd backend
 
@@ -82,11 +79,11 @@ node server.js
 
 Create backend/.env:
 
-GROQ\_API\_KEY=your\_key\_here
+GROQ\_API\_KEY=Private
 
 
 
-\## Author
+# Author
 
 Nitesh Kumar — github.com/niteshkr01
 
