@@ -8,6 +8,7 @@ type Issue = {
   title: string
   state: string
   url: string
+  html_url?: string
 }
 
 function App() {
