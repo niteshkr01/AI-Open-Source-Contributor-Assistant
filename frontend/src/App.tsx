@@ -86,23 +86,24 @@ function App() {
     let animId: number
 
     function draw() {
-      ctx.clearRect(0, 0, W, H)
+      const c = ctx!
+      c.clearRect(0, 0, W, H)
 
       stars2.forEach(s => {
         s.twinkle += 0.02
         const op = s.opacity * (Math.sin(s.twinkle) * 0.3 + 0.7)
-        ctx.beginPath()
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255,255,255,${op})`
-        ctx.fill()
+        c.beginPath()
+        c.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+        c.fillStyle = `rgba(255,255,255,${op})`
+        c.fill()
       })
 
       lines.forEach(l => {
         l.y += l.speed
         if (l.y > H + 30) { l.y = -30; l.x = W * 0.65 + Math.random() * W * 0.3 }
-        ctx.font = '9px monospace'
-        ctx.fillStyle = `rgba(35,197,94,${l.opacity})`
-        ctx.fillText(l.text, l.x, l.y)
+        c.font = '9px monospace'
+        c.fillStyle = `rgba(35,197,94,${l.opacity})`
+        c.fillText(l.text, l.x, l.y)
       })
 
       arcs.forEach(a => {
@@ -113,14 +114,14 @@ function App() {
         const cy = (a.y1 + a.y2) / 2 - 40
         const px = (1 - t) * (1 - t) * a.x1 + 2 * (1 - t) * t * cx + t * t * a.x2
         const py = (1 - t) * (1 - t) * a.y1 + 2 * (1 - t) * t * cy + t * t * a.y2
-        ctx.beginPath()
-        ctx.arc(px, py, 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = a.color + 'aa'
-        ctx.fill()
-        ctx.beginPath()
-        ctx.arc(px, py, 5, 0, Math.PI * 2)
-        ctx.fillStyle = a.color + '22'
-        ctx.fill()
+        c.beginPath()
+        c.arc(px, py, 2.5, 0, Math.PI * 2)
+        c.fillStyle = a.color + 'aa'
+        c.fill()
+        c.beginPath()
+        c.arc(px, py, 5, 0, Math.PI * 2)
+        c.fillStyle = a.color + '22'
+        c.fill()
       })
 
       treeNodes.forEach(n => {
@@ -128,14 +129,14 @@ function App() {
         n.pulse += 0.03
         if (n.y < -30) n.y = H + 30
         const p = Math.sin(n.pulse) * 0.4 + 0.6
-        ctx.beginPath()
-        ctx.arc(n.x, n.y, n.r + 3, 0, Math.PI * 2)
-        ctx.fillStyle = n.color + '18'
-        ctx.fill()
-        ctx.beginPath()
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-        ctx.fillStyle = n.color + Math.floor(p * 0.8 * 255).toString(16).padStart(2, '0')
-        ctx.fill()
+        c.beginPath()
+        c.arc(n.x, n.y, n.r + 3, 0, Math.PI * 2)
+        c.fillStyle = n.color + '18'
+        c.fill()
+        c.beginPath()
+        c.arc(n.x, n.y, n.r, 0, Math.PI * 2)
+        c.fillStyle = n.color + Math.floor(p * 0.8 * 255).toString(16).padStart(2, '0')
+        c.fill()
       })
 
       animId = requestAnimationFrame(draw)
